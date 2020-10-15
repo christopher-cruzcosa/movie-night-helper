@@ -2,7 +2,7 @@
 
 <ul>
     {{#each movies}}
-    <p>{{id}}. {{movie_title}} <button>DELETE</button></p>
+    <p>{{id}}. {{movie_title}} <button class="deleteBtn"id ={{id}}>DELETE</button></p>
     {{/each}}
 </ul>
 
@@ -29,8 +29,24 @@
 
         $.ajax({
             method: "PUT",
-            url: `/${id}`,
-            data: { title: title }
+            url: `/`,
+            data: { title: title, id: id }
+        }).then(() => {
+            location.reload();
+        })
+    });
+
+    $(".deleteBtn").on("click", function (event) {
+        event.preventDefault();
+
+        const id = $(this).attr("id");
+        //const id = $("this")
+        //const title = $("#movie-title").val().trim();
+
+        $.ajax({
+            method: "DELETE",
+            url: `/`,
+            data: { id: id }
         }).then(() => {
             location.reload();
         })
